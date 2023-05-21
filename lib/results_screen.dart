@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:second_app/data/questions.dart';
-import 'package:second_app/questions_summary.dart';
+import 'package:second_app/questions_summary/questions_summary.dart';
+import 'package:second_app/quiz.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.chosenAnswers});
+  const ResultsScreen(
+      {super.key, required this.chosenAnswers, required this.onRestart});
 
   final List<String> chosenAnswers;
+  final void Function() onRestart;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -42,12 +46,14 @@ class ResultsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: const EdgeInsets.only(
+                bottom: 30,
+              ),
               child: Text(
                 'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
-                style: TextStyle(
+                style: GoogleFonts.lato(
+                  color: const Color.fromARGB(255, 230, 200, 253),
                   fontSize: 20,
-                  color: Colors.deepPurple.shade100,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
@@ -59,9 +65,13 @@ class ResultsScreen extends StatelessWidget {
                 summaryData,
               ),
             ),
-            TextButton(
-              onPressed: () {},
-              child: Text('Restart Quiz!'),
+            TextButton.icon(
+              onPressed: onRestart,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
+              icon: const Icon(Icons.refresh),
+              label: const Text('Restart Quiz!'),
             )
           ],
         ),
