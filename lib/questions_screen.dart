@@ -46,7 +46,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            ...currentQuestion.getShuffledAnswers().map(
+            ...currentQuestion.shuffledAnswers.map(
               (answer) {
                 return AnswerButton(
                   answer: answer,
